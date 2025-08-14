@@ -1,9 +1,14 @@
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Home",
-};
+import ProductList from "@/components/ProductList";
+import sampleData from "@/db/sample-data";
 
 export default function HomePage() {
-  return <>Appearreal</>;
+  return (
+    <>
+      <ProductList
+        data={sampleData.products}
+        title="Newest Arrivals"
+        limit={4}
+      />
+    </>
+  );
 }
