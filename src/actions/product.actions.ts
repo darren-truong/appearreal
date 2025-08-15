@@ -1,7 +1,7 @@
 "use server";
 
 import { LATEST_PRODUCTS_LIMIT } from "@/lib/constants";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { convertToPlainObject } from "@/lib/utils";
 
 // Get latest products
