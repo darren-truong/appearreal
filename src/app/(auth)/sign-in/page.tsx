@@ -1,3 +1,4 @@
+import CredentialsSignInForm from "@/components/CredentialsSignInForm";
 import {
   Card,
   CardContent,
@@ -33,7 +34,9 @@ export default function SignInPage() {
             Sign in to your account
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">{/* FORM HERE */}</CardContent>
+        <CardContent className="space-y-4">
+          <CredentialsSignInForm />
+        </CardContent>
       </Card>
     </div>
   );
