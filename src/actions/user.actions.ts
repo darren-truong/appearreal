@@ -85,7 +85,7 @@ export async function getUserById(userId: string) {
     where: { id: userId },
   });
 
-  if (!user) throw new Error("User not foudn");
+  if (!user) throw new Error("User not found");
   return user;
 }
 
