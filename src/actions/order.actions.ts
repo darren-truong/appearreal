@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { getMyCart } from "./cart.actions";
 import { getUserById } from "./user.actions";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { formatError } from "@/lib/utils";
+import { convertToPlainObject, formatError } from "@/lib/utils";
 import { insertOrderSchema } from "@/lib/validators";
 import { prisma } from "@/lib/prisma";
 import { CartItem } from "@/lib/types";
@@ -101,4 +101,19 @@ export async function createOrder() {
 
     return { success: false, message: formatError(error) };
   }
+}
+
+// Get order by id
+export async function getOrderById(orderId: string) {
+  const data = await prisma.order.findFirst({
+    where: {
+      id: orderId,
+    },
+    include: {
+      OrderItem: true,
+      user: { select: { name: true, email: true } },
+    },
+  });
+
+  return convertToPlainObject(data);
 }
