@@ -16,7 +16,9 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { addItemToCart, removeItemFromCart } from "@/actions/cart.actions";
 import { toast } from "sonner";
-import { LoaderIcon, MinusIcon, PlusIcon } from "lucide-react";
+import { ArrowRightIcon, LoaderIcon, MinusIcon, PlusIcon } from "lucide-react";
+import { Card, CardContent } from "./ui/card";
+import { formatCurrency } from "@/lib/utils";
 
 export default function CartTable({ cart }: { cart?: Cart }) {
   const router = useRouter();
@@ -108,6 +110,30 @@ export default function CartTable({ cart }: { cart?: Cart }) {
               </TableBody>
             </Table>
           </div>
+          <Card>
+            <CardContent className="gap-4 p-4">
+              <div className="pb-3 text-xl">
+                Subtotal ({cart.items.reduce((a, c) => a + c.qty, 0)}):
+                <span className="font-bold">
+                  {formatCurrency(cart.itemsPrice)}
+                </span>
+              </div>
+              <Button
+                className="w-full"
+                disabled={isPending}
+                onClick={() =>
+                  startTransition(() => router.push("/shipping-address"))
+                }
+              >
+                {isPending ? (
+                  <LoaderIcon className="h-4 w-4 animate-spin" />
+                ) : (
+                  <ArrowRightIcon className="h-4 w-4" />
+                )}{" "}
+                Proceed to Checkout
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       )}
     </>
