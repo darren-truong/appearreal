@@ -46,7 +46,7 @@ export default function AddToCart({
       if (res.success) {
         toast.success(res.message);
       } else {
-        toast.warning(res.message);
+        toast.error(res.message);
       }
 
       return;

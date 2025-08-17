@@ -4,6 +4,19 @@ import { Cart } from "@/lib/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table";
+import Image from "next/image";
+import { Button } from "./ui/button";
+import { addItemToCart, removeItemFromCart } from "@/actions/cart.actions";
+import { toast } from "sonner";
+import { LoaderIcon, MinusIcon, PlusIcon } from "lucide-react";
 
 export default function CartTable({ cart }: { cart?: Cart }) {
   const router = useRouter();
@@ -18,7 +31,83 @@ export default function CartTable({ cart }: { cart?: Cart }) {
         </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
-          <div className="overflow-x-auto md:col-span-3">Table</div>
+          <div className="overflow-x-auto md:col-span-3">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Item</TableHead>
+                  <TableHead className="text-center">Quantity</TableHead>
+                  <TableHead className="text-right">Price</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {cart.items.map((item) => (
+                  <TableRow key={item.slug}>
+                    <TableCell>
+                      <Link
+                        href={`/product/${item.slug}`}
+                        className="flex items-center"
+                      >
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          width={50}
+                          height={50}
+                        />{" "}
+                        <span className="px-2">{item.name}</span>
+                      </Link>
+                    </TableCell>
+                    <TableCell className="flex-center gap-2">
+                      <Button
+                        disabled={isPending}
+                        variant="outline"
+                        type="button"
+                        onClick={() =>
+                          startTransition(async () => {
+                            const res = await removeItemFromCart(
+                              item.productId
+                            );
+
+                            if (!res.success) {
+                              toast.error(res.message);
+                            }
+                          })
+                        }
+                      >
+                        {isPending ? (
+                          <LoaderIcon className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <MinusIcon className="h-4 w-4" />
+                        )}
+                      </Button>
+                      <span>{item.qty}</span>
+                      <Button
+                        disabled={isPending}
+                        variant="outline"
+                        type="button"
+                        onClick={() =>
+                          startTransition(async () => {
+                            const res = await addItemToCart(item);
+
+                            if (!res.success) {
+                              toast.error(res.message);
+                            }
+                          })
+                        }
+                      >
+                        {isPending ? (
+                          <LoaderIcon className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <PlusIcon className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </TableCell>
+                    <TableCell className="text-right">${item.price}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       )}
     </>
