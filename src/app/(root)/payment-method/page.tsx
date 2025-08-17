@@ -1,5 +1,6 @@
 import { getUserById } from "@/actions/user.actions";
 import { auth } from "@/auth";
+import CheckoutSteps from "@/components/CheckoutSteps";
 import PaymentMethodForm from "@/components/PaymentMethodForm";
 import { Metadata } from "next";
 
@@ -18,6 +19,7 @@ export default async function PaymentMethodPage() {
 
   return (
     <>
+      <CheckoutSteps current={2} />
       <PaymentMethodForm preferredPaymentMethod={user.paymentMethod} />
     </>
   );
