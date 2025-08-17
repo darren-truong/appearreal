@@ -1,4 +1,4 @@
-"use sever";
+"use server";
 
 import { auth } from "@/auth";
 import { getMyCart } from "./cart.actions";

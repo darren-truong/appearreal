@@ -2,6 +2,7 @@ import { getMyCart } from "@/actions/cart.actions";
 import { getUserById } from "@/actions/user.actions";
 import { auth } from "@/auth";
 import CheckoutSteps from "@/components/CheckoutSteps";
+import PlaceOrderForm from "@/components/PlaceOrderForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -132,6 +133,7 @@ export default async function PlaceOrderPage() {
                 <div>Total</div>
                 <div>{formatCurrency(cart.totalPrice)}</div>
               </div>
+              <PlaceOrderForm />
             </CardContent>
           </Card>
         </div>
