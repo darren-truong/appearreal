@@ -3,7 +3,6 @@ const base = process.env.PAYPAL_API_URL || "https://api-m.sandbox.paypal.com";
 export const paypal = {
   createOrder: async function createOrder(price: number) {
     const accessToken = await generateAccessToken();
-
     const url = `${base}/v2/checkout/orders`;
 
     const response = await fetch(url, {
@@ -38,7 +37,6 @@ export const paypal = {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-
     return handleResponse(response);
   },
 };
@@ -46,7 +44,6 @@ export const paypal = {
 // Generate paypal access token
 async function generateAccessToken() {
   const { PAYPAL_CLIENT_ID, PAYPAL_APP_SECRET } = process.env;
-
   const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_APP_SECRET}`).toString(
     "base64"
   );
@@ -61,8 +58,9 @@ async function generateAccessToken() {
   });
 
   const jsonData = await handleResponse(response);
-  return jsonData.accessToken;
+  return jsonData.access_token;
 }
+
 async function handleResponse(response: Response) {
   if (response.ok) {
     return response.json();
