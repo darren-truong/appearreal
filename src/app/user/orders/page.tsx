@@ -1,4 +1,5 @@
 import { getMyOrders } from "@/actions/order.actions";
+import Pagination from "@/components/Pagination";
 import {
   TableHeader,
   TableRow,
@@ -67,6 +68,12 @@ export default async function OrdersPage(props: {
             ))}
           </TableBody>
         </Table>
+        {orders.totalPages > 1 && (
+          <Pagination
+            page={Number(page) || 1}
+            totalPages={orders?.totalPages}
+          />
+        )}
       </div>
     </div>
   );
