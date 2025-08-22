@@ -1,5 +1,6 @@
 import { getOrderSummary } from "@/actions/order.actions";
 import { auth } from "@/auth";
+import Charts from "@/components/Charts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -88,7 +89,13 @@ export default async function AdminPage() {
           <CardHeader>
             <CardTitle>Overview</CardTitle>
           </CardHeader>
-          <CardContent>{/* CHART HERE */}</CardContent>
+          <CardContent>
+            <Charts
+              data={{
+                salesData: summary.salesData,
+              }}
+            />
+          </CardContent>
         </Card>
         <Card className="col-span-3">
           <CardHeader>

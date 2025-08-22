@@ -314,7 +314,12 @@ export async function getOrderSummary() {
   // Get monthly sales
   const salesDataRaw = await prisma.$queryRaw<
     Array<{ month: string; totalSales: Prisma.Decimal }>
-  >`SELECT to_char("createdAt", 'MM/YY') as "month", sum("totalPrice") as "totalSales" FROM "Order" GROUP BY to_char("createdAt", 'MM/YY')`;
+  >`SELECT to_char(DATE_TRUNC('month', "createdAt"), 'MM/YY') AS "month",
+  SUM("totalPrice") AS "totalSales"
+  FROM "Order"
+  WHERE "createdAt" >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '12 months'
+  GROUP BY DATE_TRUNC('month', "createdAt")
+  ORDER BY DATE_TRUNC('month', "createdAt")`;
 
   const salesData: SalesDataType = salesDataRaw.map((entry) => ({
     month: entry.month,
