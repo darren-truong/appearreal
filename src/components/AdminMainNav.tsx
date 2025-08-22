@@ -6,16 +6,24 @@ import { usePathname } from "next/navigation";
 
 const links = [
   {
-    title: "Profile",
-    href: "/user/profile",
+    title: "Overview",
+    href: "/admin/overview",
+  },
+  {
+    title: "Products",
+    href: "/admin/products",
   },
   {
     title: "Orders",
-    href: "/user/orders",
+    href: "/admin/orders",
+  },
+  {
+    title: "Users",
+    href: "/admin/users",
   },
 ];
 
-export default function MainNav({
+export default function AdminMainNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
