@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { requireAdmin } from "@/lib/auth-guard";
 import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils";
 import {
   BadgeDollarSignIcon,
@@ -25,6 +26,8 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminPage() {
+  await requireAdmin();
+
   const session = await auth();
 
   if (session?.user?.role !== "admin") {
