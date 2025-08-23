@@ -1,5 +1,6 @@
-import { getAllOrders } from "@/actions/order.actions";
+import { deleteOrder, getAllOrders } from "@/actions/order.actions";
 import { auth } from "@/auth";
+import DeleteDialog from "@/components/DeleteDialog";
 import Pagination from "@/components/Pagination";
 import { Button } from "@/components/ui/button";
 import {
@@ -72,7 +73,7 @@ export default async function AdminOrdersPage(props: {
                   <Button asChild variant="outline" size="sm">
                     <Link href={`/order/${order.id}`}>Details</Link>
                   </Button>
-                  {/* DELETE */}
+                  <DeleteDialog id={order.id} action={deleteOrder} />
                 </TableCell>
               </TableRow>
             ))}
