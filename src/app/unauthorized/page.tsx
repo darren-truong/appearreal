@@ -11,7 +11,7 @@ export default function UnauthorizedPage() {
     <div className="container mx-auto flex flex-col items-center justify-center space-y-4 h-[calc(100vh-200px)]">
       <h1 className="h1-bold text-4xl">Uauthorized Access</h1>
       <p className="text-muted-foreground">
-        You do not have permission to access thi page
+        You do not have permission to access this page
       </p>
       <Button asChild>
         <Link href="/">Return Home</Link>
